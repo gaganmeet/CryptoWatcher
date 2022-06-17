@@ -1,25 +1,25 @@
-import React from "react";
-import { Select, Typography, Row, Col, Avatar, Card } from "antd";
-import moment from "moment";
-import { Loader } from "../components";
+import React from 'react'
+import { Select, Typography, Row, Col, Avatar, Card } from 'antd'
+import moment from 'moment'
+import { Loader } from '../components'
 
-import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
-import { useGetCryptosQuery } from "../services/cryptoApi";
+import { useGetCryptoNewsQuery } from '../services/cryptoNewsApi'
+import { useGetCryptosQuery } from '../services/cryptoApi'
 
-const { Text, Title } = Typography;
-const { Option } = Select;
+const { Text, Title } = Typography
+const { Option } = Select
 const demoImage =
-  "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
+  'https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News'
 
 const News = ({ simplified }) => {
-  const [newsCategory, setNewsCategory] = React.useState("Cruptocurrency");
+  const [newsCategory, setNewsCategory] = React.useState('Cryptocurrency')
   const { data: cryptoNews } = useGetCryptoNewsQuery({
     newsCategory,
     count: simplified ? 6 : 12,
-  });
-  const { data } = useGetCryptosQuery(100);
+  })
+  const { data } = useGetCryptosQuery(100)
 
-  if (!cryptoNews?.value) return <Loader />;
+  if (!cryptoNews?.value) return <Loader />
   return (
     <Row gutter={[24, 24]}>
       {!simplified && (
@@ -30,7 +30,7 @@ const News = ({ simplified }) => {
             placeholder="Select a crypto"
             optionFilterProp="children"
             onChange={(value) => {
-              setNewsCategory(value);
+              setNewsCategory(value)
             }}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -54,7 +54,7 @@ const News = ({ simplified }) => {
                 <img
                   src={news?.image?.thumbnail?.contentUrl || demoImage}
                   alt={news.name}
-                  style={{ maxWidth: "200px", maxHeight: "100px" }}
+                  style={{ maxWidth: '200px', maxHeight: '100px' }}
                 />
               </div>
               <p>
@@ -75,7 +75,7 @@ const News = ({ simplified }) => {
                   </Text>
                 </div>
                 <Text>
-                  {moment(news.datePublished).startOf("ss").fromNow()}
+                  {moment(news.datePublished).startOf('ss').fromNow()}
                 </Text>
               </div>
             </a>
@@ -83,7 +83,7 @@ const News = ({ simplified }) => {
         </Col>
       ))}
     </Row>
-  );
-};
+  )
+}
 
-export default News;
+export default News
